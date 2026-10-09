@@ -1,0 +1,16 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# Linux
+*.swp
+
+# Environment
+.env
+
+# Docker
+postgres_data/
