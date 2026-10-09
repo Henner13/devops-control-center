@@ -6,11 +6,11 @@ __pycache__/
 # VS Code
 .vscode/
 
-# Linux
-*.swp
-
-# Environment
+# Environment variables
 .env
 
 # Docker
 postgres_data/
+
+# Logs
+*.log
