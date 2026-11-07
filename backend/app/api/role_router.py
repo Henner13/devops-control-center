@@ -4,7 +4,7 @@ from fastapi import HTTPException
 
 from sqlalchemy.orm import Session
 
-from app.db.dependecies import get_db
+from app.db.dependencies import get_db
 
 from app.schemas.role import (
     RoleCreate,
