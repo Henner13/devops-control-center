@@ -1,5 +1,6 @@
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Boolean
 
 from app.db.base import Base
 
@@ -16,6 +17,11 @@ class Role(Base):
         String(30),
         unique=True,
         nullable=False
+    )
+    
+    is_active: Mapped[bool] = mapped_column(
+    Boolean,
+    default=True
     )
 
     description: Mapped[str] = mapped_column(
