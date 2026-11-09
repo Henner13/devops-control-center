@@ -4,7 +4,9 @@ from fastapi import HTTPException
 
 from sqlalchemy.orm import Session
 
+from app.models.user import User
 from app.db.dependencies import get_db
+from app.core.roles import require_admin
 
 from app.schemas.user import (
     UserCreate,
@@ -15,6 +17,10 @@ from app.services.user_service import (
     create_user,
     get_users,
     get_user_by_id
+)
+
+from app.core.auth import (
+    get_current_user
 )
 
 router = APIRouter(
@@ -46,6 +52,33 @@ def list_users(
     return get_users(db)
 
 @router.get(
+    "/me"
+)
+def get_me(
+    current_user = Depends(
+        get_current_user
+    )
+):
+    return {
+        "id": current_user.id,
+        "username": current_user.username,
+        "email": current_user.email,
+        "role_id": current_user.role_id,
+        "role_name": current_user.role.name
+    }
+
+@router.get("/admin-test")
+def admin_test(
+    current_user: User = Depends(
+        require_admin
+    )
+):
+    return {
+        "message": "Admin access granted",
+        "username": current_user.username
+    }
+
+@router.get(
     "/{user_id}",
     response_model=UserResponse
 )
@@ -65,3 +98,4 @@ def get_user(
         )
 
     return user
+
